@@ -1,7 +1,7 @@
-# A Mobile App
+# Expense Tracker
 Maggie Chen (ziningc2) | Moderator: Miranda Liu (minerl2)
 
-This is a mobile app about the final project for CS242
+This is an App about the final project for CS242
 
 ## Abstract
 ### Project Purpose
@@ -9,18 +9,18 @@ The purpose of this project is to track the expenses of a user.
 And to motivate people to control the expenses in daily life.
 
 ### Project Motivation
-Expense tracker helps visualize the expenses and earnings.
-The wish list can motivate people to save more money and spend more time considering before buying something.
-(Sometimes if a product is saved in the wish list, 
-then people might not be interested in buying it a few weeks later.)
+I found myself not awaring of how much I've spent everyday until I want to buy something expensive.
+Therefore I believe something like expense tracker may help me track the expense everyday. 
+I believe visualizing the expenses and earnings allow people to have a better understanding of total expenses.
+I also try to integrate the expense tracker with the wish list, 
+since it might also motivate people to save more money and spend more time considering before buying something.
 
 ## Technical Specification
 - Platform: Cross-platform app (React Native)
-- Programming Languages: JavaScript (Python for Flask should backend required)
+- Programming Languages: JavaScript
 - Stylistic Conventions: Airbnb JavaScript Style Guide
-- SDK: Facebook SDK for React Native (possible for social login)
 - IDE: Visual Studio Code
-- Tools/Interfaces: Mobile devices
+- Tools/Interfaces: React Native
 - Target Audience: Broad-range audience
 
 ## Functional Specification
@@ -32,8 +32,8 @@ then people might not be interested in buying it a few weeks later.)
   
 - **A wish list**
   
-    User can put something on the wish list. And the page will show the status of the product (scraped from the product website).
-    There is also visualization of the price tracking.
+    User can put something on the wish list. And the page will show the status of the product 
+    (scraped from the product website).
   
 - **Expense/Saving Goal**
 
@@ -57,8 +57,7 @@ then people might not be interested in buying it a few weeks later.)
   - Implement the goal setting. Allow user to set a goal amount for the expense tracker
 
 ### Week4
-  - Optimize the UI design, and add other **custom features** such as 
-  Dark Mode, Currency conversion, Redo button
+  - Optimize the UI design, and add other **custom features**
   - Handling the notifications
 
 ## Rubrics
@@ -66,41 +65,48 @@ then people might not be interested in buying it a few weeks later.)
 | Category  | Total Score Allocated | Detailed Rubrics                                                            |
 |-----------|:---------:|-------------------------------------------------------------------------------|
 |  Set up |  2  |  +1 Properly setting up React App <br> +1 Properly setting up the database|
-|  Login |  5  |  +1: Support Create Account if email not previously registered <br> +1: Support password validation <br> +1: Show current user if logged in <br> +1: Handle error messages <br> +1: Valid username and password can navigate to the main App|
+|  Login |  5  |  +1: Support Create Account <br> +1: Support password validation <br> +1: Show current user if logged in <br> +1: Handle error messages <br> +1: Valid username and password can navigate to the main App|
 |  Logout |  2  |  +1: Implement Logout <br> +1: User should not see the personal data after logged out|
-|  Basic UI Design  |  4  |  +1: Login form is properly designed <br> +1: Allow user to input number for expense/earnings <br> +1: Can navigate between screens <br> +1: Basic screen design for each feature implemented|
-|  Expense tracker backend  | 1 | +1: For the correct amount of expense/earnings|
-|  Unit test |  4  |  -0.5: missing a unit test case|
-|  Manual Test Plan |  4  |  +0.5: for each test case |
+|  Basic UI Design  |  3  |  +1: Login form is properly designed <br> +1: Can navigate between screens <br> +1: Basic screen design for each feature implemented|
+|  Expense tracker frontend  | 3 | +1: Allow user to input expense/earning <br> +1: Show the total amount <br> +1: Allow user to select the category of expense|
+|  Eslint|  2  |  +1: Set up Eslint <br> +1: No error or warning message|
+|  Unit test |  3  |  -0.5: missing a unit test case|
+|  Manual Test Plan |  5  |  -1: missing a test case |
 
 ### Week 2
-| Category  | Total Score Allocated | Detailed Rubrics                                                            |
-|-----------|:---------:|-------------------------------------------------------------------------------|
-|  Expense tracker frontend  | 2 | +1: Rendering the correct amount for expense tracker <br> +1: The complete design of expense tracker is implemented|
-|  Wish List backend |  3  |  +2: Successfully scraped the data for the wish list product <br> +1: Handle errors|
-|  Wish List Frontend |  6  |  +1: Can add stuff to the wish list <br> +2: Rendering the product information properly <br> +1: User can delete from the wish list <br> +1: Click certain tab will bring user to the product website <br> +1: Handle error views|
+| Category | Total Score Allocated | Detailed Rubrics                                                            |
+|------------|:---------:|-------------------------------------------------------------------------------|
+|  Expense tracker backend  | 4 | +1: Properly store the user input number and the total amount <br> +1: Connection between backend and frontend (complete implementation of expense tracker) <br> +1: The expense tracker design follows the App interface sketch<br> +1: Handle errors|
+|  Wish List backend |  4  |  +1: Implement the scraper <br> +1: Can scrape corresponding data with a user-input url <br> +1: Handle errors <br> +1: Store the scraped data into database properly|
+|  Wish List Frontend |  6  |  +1: Allow user to enter the url of the wish list product <br> +2: Rendering the product information properly (read from database) <br> +1: Click certain tab will bring user to the product website <br> +1: Handle error views <br> +1: The wish list design follows the App interface sketch|
+|  Screen rendering |  1  |  +1: Loading screen for wish list during scraping|
+|  Eslint|  1  |  +1: No error or warning message|
 |  Unit test |  4  |  -0.5: missing a unit test case|
-|  Manual Test Plan |  4  |  +0.5: for each test case |
+|  Manual Test Plan |  5  |  -1: missing a test case |
 
 
 ### Week 3
 | Category  | Total Score Allocated | Detailed Rubrics                                                            |
 |-----------|:---------:|-------------------------------------------------------------------------------|
-|  Visualization |  5  |   +2: Implement the visualization for expense tracker properly <br> +3: User can select the time range of the visualization |
-|  Set goal |  5  | +1: User can set the amount goal <br>  +1: Amount goal properly stored in backend <br> +1: User can change the goal amount once per time range (day/week/month) <br> +1: Rendering correct result of whether the user meets the goal <br> +1: If not meet the goal, clicking the tab in wish list will not bring user to the product website|
-|  Reset  |  3  |  +2: User can reset the expense tracker <br> +1: User can reset the wish list |
-|  Unit test |  3  |  -0.5: missing a unit test case|
-|  Manual Test Plan |  4  |  +0.5: for each test case |
+|  Visualization |  5  |   +2: Having a proper chart showing the history of amount <br> +1: User can choose whether the visualization is classified by category or time <br> +2: User can select the time range of the visualization result |
+|  Set goal |  6  | +1: User can set the amount goal <br>  +1: Amount goal properly stored in backend <br> +1: User can change the goal amount once per time range (day/week/month) <br> +1: Rendering correct result of whether the user meets the goal <br> +1: If not meet the goal, clicking the tab in wish list will not bring user to the product website <br> +1: User can choose to randomly generate a goal amount|
+|  Interaction with expense tracker|  2  | +1: The expense tracker screen shows the remaining amount needed for the goal <br> +1: Show message if the goal user set is largely greater than the saving amount |
+|  Reset  |  2  |  +1: User can reset the expense tracker <br> +1: User can reset the wish list |
+|  Eslint|  1  |  +1: No error or warning message|
+|  Unit test |  4  |  -0.5: missing a unit test case|
+|  Manual Test Plan |  5  |  -1: missing a test case |
 
 
 ### Week 4
 | Category  | Total Score Allocated | Detailed Rubrics                                                            |
 |-----------|:---------:|-------------------------------------------------------------------------------|
-|  App design |  2  |  +2: Beautiful App Design |
-|  Custom features |  6  |  +2: For each custom feature implemented properly |
-|  Notification |  4  |   +1: Prompting notification when the saving amount meets the goal <br> +1: The notification can navigate to the wish list/product website <br> +1: Notification when expense is largely greater than earnings each day <br> +1: Notification when monthly savings amount not meet the goal|
-|  Unit Test |  5 |  +0.5: Per unit test |
-|  Manual Test Plan |  5  |  +0.5: per test case |
+|  Nice App design |  2  |  -1: Have same color representation for different attributes <br> -1: Use default react native component design (font, button etc.) |
+|  Custom features |  6  |  +2: User can choose to convert to dark mode for the App <br> +1: User can choose different currency <br> +1: User can choose to hide the total amount <br> +2: Have redo functionality for all attributes and take effect if user click the reset button |
+|  Notification Message |  4  |  +1: Prompting notification when the saving amount meets the goal <br> +1: The notification can navigate to the wish list/product website <br> +1: Notification when expense is largely greater than earnings each day <br> +1: Notification when monthly savings amount not meet the goal|
+|  Search |  3  |  +1: Search screen properly designed <br> +2: User can search for a certain month to see the monthly expense report |
+|  Eslint|  1  |  +1: No error or warning message|
+|  Unit test |  3  |  -0.5: missing a unit test case|
+|  Manual Test Plan |  6  |  -1: missing a test case |
 
 ### Grading Calculator
   - Week 1
