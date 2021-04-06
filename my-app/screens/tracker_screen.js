@@ -4,6 +4,10 @@ import {
 } from 'react-native';
 import styles from '../style';
 
+/**
+ * The expense tracker screen
+ * TO DO : Backend
+ */
 export default class TrackerScreen extends Component {
   static navigationOptions = {
     title: 'Tracker',
@@ -12,7 +16,10 @@ export default class TrackerScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      balance: 1000.00,
+      addAmount: 0.0,
+    };
   }
 
   logoutHandler = () => {
@@ -22,7 +29,17 @@ export default class TrackerScreen extends Component {
     navigation.navigate('Login');
   }
 
+  amountHandler = (text) => {
+    this.setState({ addAmount: parseFloat(text) });
+  }
+
+  addHandler = () => {
+    const { balance, addAmount } = this.state;
+    this.setState({ balance: balance + addAmount });
+  }
+
   render() {
+    const { balance } = this.state;
     return (
       // <View style={styles.container}>
       <View style={{ alignItems: 'center', marginTop: '20%' }}>
@@ -30,12 +47,15 @@ export default class TrackerScreen extends Component {
           <Text style={styles.textAttr}>
             YOUR BALANCE:
           </Text>
-          <Text style={{ fontSize: 25, fontWeight: 'bold', marginBottom: '20%' }}> $1000.00</Text>
+          <Text style={{
+            fontSize: 25, fontWeight: 'bold', marginBottom: '20%', alignSelf: 'center',
+          }}
+          >
+            $
+            {balance}
+          </Text>
         </View>
 
-        {/* <Text>Expense Tracker Screen!!!</Text> */}
-        {/* <Text>Expense</Text>
-        <Text>Saving</Text> */}
         <View style={{ marginBottom: '8%' }}>
           <Text style={styles.textAttr}>Memo: </Text>
           <TextInput
@@ -49,10 +69,14 @@ export default class TrackerScreen extends Component {
           <TextInput
             placeholder="nagative for expense amount"
             style={styles.inputbox}
+            onChangeText={this.amountHandler}
           />
         </View>
 
-        <TouchableOpacity style={styles.loginButton}>
+        <TouchableOpacity
+          style={styles.loginButton}
+          onPress={this.addHandler}
+        >
           <Text style={styles.loginButtonText}>Add</Text>
         </TouchableOpacity>
 

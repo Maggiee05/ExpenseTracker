@@ -5,6 +5,11 @@ import {
 import styles from '../style';
 import loginDb from '../login_db';
 
+/**
+ * The login screen
+ * Navigate to the home screen if correct username and password
+ */
+
 export default class LoginScreen extends Component {
     static navigationOptions = {
       title: 'Login',
@@ -34,6 +39,7 @@ export default class LoginScreen extends Component {
     };
 
     loginHandler = (username, password) => {
+      // Integrating with Firebase to check whether the usename and password is correct
       console.log('Login clicked!!!');
       const refStr = `users/${username}`;
       console.log(refStr);

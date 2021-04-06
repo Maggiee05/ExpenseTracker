@@ -4,6 +4,11 @@ import {
 } from 'react-native';
 import styles from '../style';
 
+/**
+ * The search screen
+ * TO DO
+ */
+
 export default class SearchScreen extends Component {
   static navigationOptions = {
     title: 'Search',

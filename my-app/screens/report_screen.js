@@ -4,6 +4,11 @@ import {
 } from 'react-native';
 import styles from '../style';
 
+/**
+ * The report screen
+ * TO DO
+ */
+
 export default class ReportScreen extends Component {
   static navigationOptions = {
     title: 'Report',

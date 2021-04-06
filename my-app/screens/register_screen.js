@@ -5,6 +5,11 @@ import {
 import styles from '../style';
 import loginDb from '../login_db';
 
+/**
+ * The register screen
+ * Navigate to the home screen if valid username and password
+ */
+
 export default class RegisterScreen extends Component {
   static navigationOptions = {
     title: 'Register',
@@ -35,6 +40,7 @@ export default class RegisterScreen extends Component {
   }
 
   registerHandler = (username, password, confirm) => {
+    // Insert the username and password to Firebase if valid
     try {
       if (password !== confirm) {
         Alert.alert('The confirmed password is not the same as password. Please re-enter.');
