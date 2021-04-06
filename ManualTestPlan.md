@@ -44,26 +44,26 @@
 
 - This is the main screen
 
-![](img/p1.jpg)
+![](img/p1.png)
 
 ### Register
 
 - If you are new to the App, you should go to the register page. After click the **REGISTER** button
 
-![](img/p2.jpg)
+![](img/p2.png)
 
 You will have the sign up page to enter your username and password, and confirm your password. Password input are text secured.
 
 - If your **password** and **Confirm password** does not match
 
-![](img/p3.jpg)
+![](img/p3.png)
 
 
 You will receive the notification like this. You should click **OK** and re-enter
 
 - If you enter password less than 6 characters
 
-![](img/p4.jpg)
+![](img/p4.png)
 
 You will receive the notification like this. You should click **OK** and re-enter
 
@@ -78,22 +78,18 @@ You will receive the notification like this. You should click **OK** and re-ente
 
 - If your password does not match your username as registered before
 
-![](img/p6.jpg)
+![](img/p6.png)
 
 You will receive the notification like this. You should click **OK** and re-enter
 
-- If you enter correct username and password and click **LOGIN**
-
-![](img/p7.jpg)
-
-You will be guided to the main screen of the App
+- If you enter correct username and password and click **LOGIN**. You will be guided to the main screen of the App
 
 
 ### Application Main Page
 
 - This the main screen of the Application
 
-![](img/p7.jpg)
+![](img/p7.png)
 
 You can see there are four tabs in the bottom, each for the *expense tracker*, *wish list*, *search*, and *Report*.
 
@@ -101,7 +97,7 @@ You can see the **YOUR BALANCE** on the top showing your total balance. And the 
 
 - If you click the **Logout** button
 
-![](img/p8.jpg)
+![](img/p8.png)
 
 You will be guided back to the login page.
 
