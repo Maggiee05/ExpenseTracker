@@ -38,7 +38,7 @@
 
 - You should be seeing this in terminal
 
-![](img/p0.jpg)
+![](img/p0.png)
 
 - You can run the App on an iOS simulator using XCode or Web Server
 
