@@ -5,7 +5,7 @@ import {
 import { Icon } from 'react-native-elements';
 import styles from '../style';
 import { UserContext } from '../navigator/context';
-import loginDb from '../database/login_db';
+import setBalance from '../database/tracker_db';
 
 /**
  * The expense tracker screen
@@ -38,13 +38,7 @@ export default class TrackerScreen extends Component {
 
   addHandler = async (user) => {
     const { addAmount } = this.state;
-    const refStr = `users/${user}`;
-    const snapshot = await loginDb.ref(refStr).once('value');
-    const amount = parseFloat(snapshot.toJSON().balance);
-    loginDb.ref(refStr).update({
-      balance: amount + addAmount,
-    });
-    const result = parseFloat(snapshot.toJSON().balance) + addAmount;
+    const result = await setBalance(user, addAmount);
     this.setState({ balance: `$${result}` });
   }
 
