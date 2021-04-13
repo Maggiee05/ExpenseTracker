@@ -1,14 +1,9 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// import styles from './style';
 import LoginScreen from './screens/login_screen';
 import RegisterScreen from './screens/register_screen';
-// import MainStackNavigator from './MainNavigator';
 import HomeScreen from './screens/home_screen';
-// import TrackerScreen from './tracker_screen';
-// import WishlistScreen from './wishlist_screen';
 
 const Stack = createStackNavigator();
 

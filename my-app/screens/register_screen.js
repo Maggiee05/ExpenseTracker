@@ -3,11 +3,12 @@ import {
   Text, View, TouchableOpacity, TextInput, Alert,
 } from 'react-native';
 import styles from '../style';
-import loginDb from '../login_db';
+import loginDb from '../database/login_db';
 
 /**
  * The register screen
  * Navigate to the home screen if valid username and password
+ * TO DO: Password Hashing
  */
 
 export default class RegisterScreen extends Component {
@@ -26,12 +27,10 @@ export default class RegisterScreen extends Component {
   }
 
   usernameHandler = (text) => {
-    // console.log(text);
     this.setState({ username: text });
   }
 
   passwordHandler = (text) => {
-    // console.log(text);
     this.setState({ password: text });
   }
 
@@ -53,14 +52,21 @@ export default class RegisterScreen extends Component {
         loginDb.ref(refStr).set({
           name: username,
           password,
+          price: 0,
+          rate: 0,
+          balance: 0,
+          imageUrl: 'http://pngimg.com/uploads/amazon/amazon_PNG21.png',
+          url: 'https://www.amazon.com/ref=nav_logo',
+          productName: '',
+          stock: '',
         }).then(() => {
-          console.log('INSERTED');
+          console.log('New user&password inserted into database');
         }).catch((error) => {
           console.log(error);
         });
 
         const { navigation } = this.props;
-        navigation.navigate('Home');
+        navigation.navigate('Home', { username });
       }
     } catch (error) {
       console.log(error);
@@ -100,7 +106,7 @@ export default class RegisterScreen extends Component {
         </View>
 
         <TouchableOpacity
-          style={styles.registerButton}
+          style={styles.registerButton2}
           onPress={() => {
             const { username } = this.state;
             const { password } = this.state;
