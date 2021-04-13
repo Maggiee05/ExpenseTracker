@@ -52,8 +52,8 @@ export default class RegisterScreen extends Component {
         loginDb.ref(refStr).set({
           name: username,
           password,
-          price: 0,
-          rate: 0,
+          price: '',
+          rate: '',
           balance: 0,
           imageUrl: 'http://pngimg.com/uploads/amazon/amazon_PNG21.png',
           url: 'https://www.amazon.com/ref=nav_logo',
