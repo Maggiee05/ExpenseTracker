@@ -35,7 +35,7 @@ since it might also motivate people to save more money and spend more time consi
     User can put something on the wish list. And the page will show the status of the product 
     (scraped from the product website).
   
-- **Expense/Saving Goal**
+- **Setting Expense/Savings Goal**
 
     User can input a number for the amount of money that they want to save. 
     If the amount is reached, user will receive notification of whether to buy the product.
@@ -88,10 +88,11 @@ since it might also motivate people to save more money and spend more time consi
 ### Week 3
 | Category  | Total Score Allocated | Detailed Rubrics                                                            |
 |-----------|:---------:|-------------------------------------------------------------------------------|
-|  Visualization |  5  |   +2: Having a proper chart showing the history of amount <br> +1: User can choose whether the visualization is classified by category or time <br> +2: User can select the time range of the visualization result |
-|  Set goal |  6  | +1: User can set the amount goal <br>  +1: Amount goal properly stored in backend <br> +1: User can change the goal amount once per time range (day/week/month) <br> +1: Rendering correct result of whether the user meets the goal <br> +1: If not meet the goal, clicking the tab in wish list will not bring user to the product website <br> +1: User can choose to randomly generate a goal amount|
+|  Visualization |  4  |   +1: Have a proper chart showing monthly balance <br> +1: Have a proper chart for categorical expense <br> +1: Have a proper chart for categorical income<br> +1: User can choose which chart to render |
+|  Set goal |  5  | +1: User can set the amount goal <br>  +1: Amount goal properly stored in backend <br> +1: User can change the goal amount once per month (Receive alert notification) <br> +1: Rendering the status of whether the user meets the goal <br> +1: User can choose to randomly generate a goal amount|
 |  Interaction with expense tracker|  2  | +1: The expense tracker screen shows the remaining amount needed for the goal <br> +1: Show message if the goal user set is largely greater than the saving amount |
 |  Reset  |  2  |  +1: User can reset the expense tracker <br> +1: User can reset the wish list |
+|  Profile Screen frontend |  2  |  +1: The frontend design for 'Me' Screen is implemented (user can enter, select etc.) <br> +1: Implement the frontend design for 'change password' screen and 'add categories' screen |
 |  Eslint|  1  |  +1: No error or warning message|
 |  Unit test |  4  |  -0.5: missing a unit test case|
 |  Manual Test Plan |  5  |  -1: missing a test case |
@@ -101,9 +102,9 @@ since it might also motivate people to save more money and spend more time consi
 | Category  | Total Score Allocated | Detailed Rubrics                                                            |
 |-----------|:---------:|-------------------------------------------------------------------------------|
 |  Nice App design |  2  |  -1: Have same color representation for different attributes <br> -1: Use default react native component design (font, button etc.) |
-|  Custom features |  6  |  +2: User can choose to convert to dark mode for the App <br> +1: User can choose different currency <br> +1: User can choose to hide the total amount <br> +2: Have redo functionality for all attributes and take effect if user click the reset button |
-|  Notification Message |  4  |  +1: Prompting notification when the saving amount meets the goal <br> +1: The notification can navigate to the wish list/product website <br> +1: Notification when expense is largely greater than earnings each day <br> +1: Notification when monthly savings amount not meet the goal|
-|  Search |  3  |  +1: Search screen properly designed <br> +2: User can search for a certain month to see the monthly expense report |
+|  Custom features |  7  |  +2: User can choose to convert to dark mode for the App <br> +1: User can choose different currency <br> +1: User can choose to hide the total amount <br> +1: User can add/delete categories in expense tracker <br> +1: User can change password <br> +1: User can delete account <br> +1: User can share the report in 'Report' Screen |
+|  Notification Message |  4  |  +1: Prompting notification when the saving amount meets the goal <br> +1: The notification can navigate to the wish list/product website <br> +1: Notification when expense is largely greater than earnings each day <br> +1: Notification when monthly savings amount not meet the goal <br> -1: Not handling error view |
+|  Security Enhancement |  1  |  +1: Password Encryption/Decryption implemented|
 |  Eslint|  1  |  +1: No error or warning message|
 |  Unit test |  3  |  -0.5: missing a unit test case|
 |  Manual Test Plan |  6  |  -1: missing a test case |
