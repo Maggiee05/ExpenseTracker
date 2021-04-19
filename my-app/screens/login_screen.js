@@ -3,7 +3,7 @@ import {
   Text, View, TouchableOpacity, Alert, TextInput,
 } from 'react-native';
 import styles from '../style';
-import loginDb from '../login_db';
+import loginDb from '../database/login_db';
 
 /**
  * The login screen
@@ -46,12 +46,9 @@ export default class LoginScreen extends Component {
       loginDb.ref(refStr).once('value', (snapshot) => {
         if (!snapshot.exists()) {
           Alert.alert('Username not exists. Please sign up first.');
-        //   console.log('NOT EXISTTTTTTT!!');
         } else if (snapshot.toJSON().password !== password) {
           Alert.alert('Incorrect password');
-        //   console.log('NOT MATCHHHHHHH!!');
         } else {
-        //   console.log('YAYYYYYY!!');
           const { navigation } = this.props;
           navigation.navigate('Home', { username });
         }
@@ -93,7 +90,7 @@ export default class LoginScreen extends Component {
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.loginButton}
+            style={styles.registerButton1}
             onPress={this.registerHandler}
           >
             <Text style={styles.loginButtonText}>REGISTER</Text>

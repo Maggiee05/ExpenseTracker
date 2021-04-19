@@ -10,7 +10,7 @@ const MainTab = createBottomTabNavigator();
 export default function MainStackNavigator() {
   return (
     <MainTab.Navigator tabBarOptions={{
-      labelStyle: { fontSize: 12 },
+      labelStyle: { fontSize: 12, marginBottom:'2%' },
     }}
     >
       <MainTab.Screen name="Tracker" component={TrackerScreen} />

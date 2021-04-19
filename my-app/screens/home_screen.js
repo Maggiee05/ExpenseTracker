@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MainStackNavigator from '../navigator/MainNavigator';
+import { UserContext } from '../navigator/context';
 
 /**
  * The home screen class use to transmit the login/register screen to the main App screens
@@ -21,10 +22,11 @@ export default class HomeScreen extends Component {
 
   render() {
     const { user } = this.state;
-    console.log(`Current user is: ${user}`);
     return (
-      <MainStackNavigator screenProps={{ user }} />
-      // <MainStackNavigator />
+      <UserContext.Provider value={{ user }}>
+        <MainStackNavigator />
+      </UserContext.Provider>
+
     );
   }
 }

@@ -2,12 +2,17 @@ import React, { Component } from 'react';
 import {
   Text, TextInput, View, TouchableOpacity,
 } from 'react-native';
+import { Icon } from 'react-native-elements';
 import styles from '../style';
+import { UserContext } from '../navigator/context';
+import setBalance from '../database/tracker_db';
 
 /**
  * The expense tracker screen
- * TO DO : Backend
+ * Shows the current balance for the user, user can input expense/income of the day
+ * User can also logout by clicking the logout button
  */
+
 export default class TrackerScreen extends Component {
   static navigationOptions = {
     title: 'Tracker',
@@ -17,15 +22,13 @@ export default class TrackerScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      balance: 1000.00,
+      balance: '******',
       addAmount: 0.0,
     };
   }
 
   logoutHandler = () => {
-    console.log('Tracker logout!!!');
     const { navigation } = this.props;
-    // const { navigate } = this.props.navigation;
     navigation.navigate('Login');
   }
 
@@ -33,71 +36,85 @@ export default class TrackerScreen extends Component {
     this.setState({ addAmount: parseFloat(text) });
   }
 
-  addHandler = () => {
-    const { balance, addAmount } = this.state;
-    this.setState({ balance: balance + addAmount });
+  addHandler = async (user) => {
+    const { addAmount } = this.state;
+    const result = await setBalance(user, addAmount);
+    this.setState({ balance: `$${result}` });
   }
 
   render() {
     const { balance } = this.state;
     return (
-      // <View style={styles.container}>
-      <View style={{ alignItems: 'center', marginTop: '20%' }}>
-        <View>
-          <Text style={styles.textAttr}>
-            YOUR BALANCE:
-          </Text>
-          <Text style={{
-            fontSize: 25, fontWeight: 'bold', marginBottom: '20%', alignSelf: 'center',
-          }}
-          >
-            $
-            {balance}
-          </Text>
-        </View>
+      <UserContext.Consumer>
+        { ({ user }) => (
+          <View>
+            <Text style={styles.currentUser}>
+              Welcome,
+              {user}
+            </Text>
+            <Text style={styles.date}>
+              {'\n'}
+              {`${new Date().getMonth() + 1}/${new Date().getDate()}/${new Date().getFullYear()}`}
+            </Text>
+            <View style={{ alignItems: 'center', marginTop: '32%' }}>
+              <View>
+                <Text style={styles.textAttr}>
+                  YOUR BALANCE:
+                </Text>
 
-        <View style={{ marginBottom: '8%' }}>
-          <Text style={styles.textAttr}>Memo: </Text>
-          <TextInput
-            placeholder="Category"
-            style={styles.inputbox}
-          />
-        </View>
+                <View style={{ flexDirection: 'row' }}>
+                  <Text style={styles.balanceText}>
+                    {balance}
+                  </Text>
+                  <TouchableOpacity
+                    style={styles.showButton}
+                    onPress={() => { this.addHandler(user); }}
+                  >
+                    <Text style={styles.showText}>Show</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
 
-        <View>
-          <Text style={styles.textAttr}>Amount: </Text>
-          <TextInput
-            placeholder="nagative for expense amount"
-            style={styles.inputbox}
-            onChangeText={this.amountHandler}
-          />
-        </View>
+              <View style={{ marginBottom: '8%', marginTop: '5%' }}>
+                <Text style={styles.textAttr}>Memo: </Text>
+                <View style={styles.inputbox}>
+                  <TextInput
+                    placeholder="Category"
+                    style={styles.textinput}
+                  />
+                </View>
+              </View>
 
-        <TouchableOpacity
-          style={styles.loginButton}
-          onPress={this.addHandler}
-        >
-          <Text style={styles.loginButtonText}>Add</Text>
-        </TouchableOpacity>
+              <View>
+                <Text style={styles.textAttr}>Amount: </Text>
+                <View style={styles.inputbox}>
+                  <TextInput
+                    placeholder="Negative for expense amount"
+                    style={styles.textinput}
+                    onChangeText={this.amountHandler}
+                  />
+                </View>
+              </View>
 
-        <TouchableOpacity
-          style={{
-            width: 70, height: 35, borderRadius: 8, backgroundColor: '#add8e6', marginTop: '10%',
-          }}
-          onPress={this.logoutHandler}
-        >
+              <TouchableOpacity
+                style={styles.addButton}
+                onPress={() => {
+                  this.addHandler(user);
+                }}
+              >
+                <Text style={styles.loginButtonText}>Add</Text>
+              </TouchableOpacity>
 
-          <Text style={{
-            alignSelf: 'center',
-            marginTop: '10%',
-            fontSize: 15,
-            fontWeight: 'bold',
-          }}
-          >
-            Logout
-          </Text>
-        </TouchableOpacity>
-      </View>
+              <TouchableOpacity
+                onPress={this.logoutHandler}
+                style={{ marginTop: '10%' }}
+              >
+                <Icon reverse name="logout" color="#708090" size={20} />
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+      </UserContext.Consumer>
 
     );
   }

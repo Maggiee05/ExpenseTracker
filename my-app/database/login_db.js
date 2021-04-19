@@ -1,6 +1,10 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
 
+/**
+ * Initialize a firebase with my personal configuration.
+ */
+
 const firebaseConfig = {
   apiKey: 'AIzaSyBM3OU5OtHmkwHPWPHCM93En5h9YMnjjjM',
   authDomain: 'finalproject-79343.firebaseapp.com',
@@ -13,7 +17,6 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-// console.log(firebase);
 const loginDb = firebase.database();
 
 export default loginDb;
