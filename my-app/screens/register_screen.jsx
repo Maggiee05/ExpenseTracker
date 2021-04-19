@@ -43,11 +43,10 @@ export default class RegisterScreen extends Component {
     try {
       if (password !== confirm) {
         Alert.alert('The confirmed password is not the same as password. Please re-enter.');
-        console.log('Not the same password');
       } else if (password.length < 6) {
         Alert.alert('The password should have at least 6 characters.');
-        console.log('Passwords length not correct');
       } else {
+        // default attributes for a new user
         const refStr = `users/${username}`;
         loginDb.ref(refStr).set({
           name: username,
@@ -55,10 +54,14 @@ export default class RegisterScreen extends Component {
           price: '',
           rate: '',
           balance: 0,
+          monthlyBalance: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           imageUrl: 'http://pngimg.com/uploads/amazon/amazon_PNG21.png',
           url: 'https://www.amazon.com/ref=nav_logo',
           productName: '',
           stock: '',
+          category: '',
+          goal: 0,
+          status: '',
         }).then(() => {
           console.log('New user&password inserted into database');
         }).catch((error) => {
@@ -108,9 +111,7 @@ export default class RegisterScreen extends Component {
         <TouchableOpacity
           style={styles.registerButton2}
           onPress={() => {
-            const { username } = this.state;
-            const { password } = this.state;
-            const { confirmPassword } = this.state;
+            const { username, password, confirmPassword } = this.state;
             this.registerHandler(username, password,
               confirmPassword);
           }}

@@ -6,13 +6,11 @@ import fetch from 'node-fetch';
  * Has attribute: url (user-input url), name (name of the product),
  * and imgUrl, rate, price, stock (of the product)
  */
-
 export default async function loadProductInfo(searchUrl) {
   let response = null;
   try {
     response = await fetch(searchUrl);
   } catch (error) {
-    console.log(error);
     return response;
   }
 
