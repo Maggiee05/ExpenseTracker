@@ -102,7 +102,7 @@ since it might also motivate people to save more money and spend more time consi
 | Category  | Total Score Allocated | Detailed Rubrics                                                            |
 |-----------|:---------:|-------------------------------------------------------------------------------|
 |  Nice App design |  2  |  -1: Have same color representation for different attributes <br> -1: Use default react native component design (font, button etc.) |
-|  Custom features |  7  |  +2: User can choose to convert to dark mode for the App <br> +1: User can choose different currency <br> +1: User can choose to hide the total amount <br> +1: User can add/delete categories in expense tracker <br> +1: User can change password <br> +1: User can delete account <br> +1: User can share the report in 'Report' Screen |
+|  Custom features |  8  |  +2: User can choose to convert to dark mode for the App <br> +1: User can choose different currency <br> +1: User can choose to hide the total amount <br> +1: User can add/delete categories in expense tracker <br> +1: User can change password <br> +1: User can delete account <br> +1: User can share the report in 'Report' Screen |
 |  Notification Message |  4  |  +1: Prompting notification when the saving amount meets the goal <br> +1: The notification can navigate to the wish list/product website <br> +1: Notification when expense is largely greater than earnings each day <br> +1: Notification when monthly savings amount not meet the goal <br> -1: Not handling error view |
 |  Security Enhancement |  1  |  +1: Password Encryption/Decryption implemented|
 |  Eslint|  1  |  +1: No error or warning message|
