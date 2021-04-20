@@ -35,7 +35,7 @@ async function getGoalStatus(user) {
   if (goal !== 0) {
     return [status, goal];
   }
-  return [status, ''];
+  return ['', ''];
 }
 
 export { setStatus, getGoalStatus };
