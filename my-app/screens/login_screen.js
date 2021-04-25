@@ -33,16 +33,13 @@ export default class LoginScreen extends Component {
     }
 
     registerHandler = () => {
-      console.log('Register clicked!!!');
       const { navigation } = this.props;
       navigation.navigate('Register');
     };
 
     loginHandler = (username, password) => {
       // Integrating with Firebase to check whether the usename and password is correct
-      console.log('Login clicked!!!');
       const refStr = `users/${username}`;
-      console.log(refStr);
       loginDb.ref(refStr).once('value', (snapshot) => {
         if (!snapshot.exists()) {
           Alert.alert('Username not exists. Please sign up first.');
@@ -64,7 +61,7 @@ export default class LoginScreen extends Component {
               style={styles.textinput}
               placeholder="Username"
               autoCapitalize="none"
-              onChangeText={this.usernameHandler}
+              onChangeText={(text) => this.usernameHandler(text)}
             />
           </View>
 
@@ -74,15 +71,14 @@ export default class LoginScreen extends Component {
               placeholder="Password"
               secureTextEntry
               autoCapitalize="none"
-              onChangeText={this.passwordHandler}
+              onChangeText={(text) => this.passwordHandler(text)}
             />
           </View>
 
           <TouchableOpacity
             style={styles.loginButton}
             onPress={() => {
-              const { username } = this.state;
-              const { password } = this.state;
+              const { username, password } = this.state;
               this.loginHandler(username, password);
             }}
           >

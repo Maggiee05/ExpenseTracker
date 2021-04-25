@@ -7,19 +7,17 @@ import styles from '../style';
 import loadProductInfo from '../get_wishlist';
 import { UserContext } from '../navigator/context';
 import loginDb from '../database/login_db';
+import { setWishlist, resetWishlist } from '../database/wishlist_db';
 
 /**
  * The wishlist screen
  * User can input a certain Amazon website.
  * Information will be scraped from the official website and stored into database.
  */
-
 export default class WishlistScreen extends Component {
   static navigationOptions = {
     title: 'Wishlist',
   };
-
-  // static contextType = UserContext;
 
   constructor(props) {
     super(props);
@@ -35,8 +33,8 @@ export default class WishlistScreen extends Component {
     const currUser = this.context;
     this.getInfo(currUser.user);
   }
-  // WishlistScreen.contextType = UserContext;
 
+  // get the product information and set to state
   getInfo = async (currUser) => {
     const refStr = `users/${currUser}`;
     const snapshot = await loginDb.ref(refStr).once('value');
@@ -53,7 +51,7 @@ export default class WishlistScreen extends Component {
 
   submitHandler = async () => {
     this.setState({ loading: true });
-    const { url } = this.state;
+    const { url, currUser } = this.state;
     const item = await loadProductInfo(url);
     if (item === null) {
       this.setState({ loading: false });
@@ -70,19 +68,7 @@ export default class WishlistScreen extends Component {
       });
     }
 
-    const {
-      price, productName, rate, stock, imageUrl, currUser,
-    } = this.state;
-
-    const refStr = `users/${currUser}`;
-    loginDb.ref(refStr).update({
-      price,
-      productName,
-      rate,
-      stock,
-      imageUrl,
-      url,
-    });
+    setWishlist(this.state, currUser);
   }
 
   urlInputHandler = (text) => {
@@ -106,9 +92,14 @@ export default class WishlistScreen extends Component {
     />
   )
 
+  resetHandler = (user) => {
+    const data = resetWishlist(user);
+    this.setState(data);
+  }
+
   render() {
     const {
-      price, productName, rate, stock, imageUrl, url, loading, showWebView,
+      price, productName, rate, stock, imageUrl, url, loading, showWebView, currUser,
     } = this.state;
 
     if (loading) {
@@ -191,6 +182,13 @@ export default class WishlistScreen extends Component {
             {stock}
           </Text>
         </View>
+
+        <TouchableOpacity
+          onPress={() => this.resetHandler(currUser)}
+          style={styles.reset}
+        >
+          <Text style={{ fontWeight: '600', color: '#808080' }}> RESET</Text>
+        </TouchableOpacity>
       </View>
     );
   }

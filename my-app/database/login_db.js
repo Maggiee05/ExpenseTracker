@@ -2,7 +2,8 @@ import firebase from 'firebase/app';
 import 'firebase/database';
 
 /**
- * Initialize a firebase with my personal configuration.
+ * Initialize a firebase with personal configuration.
+ * Should not be pushed to Git !!
  */
 
 const firebaseConfig = {
