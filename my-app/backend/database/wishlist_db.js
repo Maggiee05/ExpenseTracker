@@ -17,7 +17,7 @@ function setWishlist(data, user) {
 
 /**
  * Reset the wishlist
- * The default image if the Amazon logo, the default url is the Amazon Home Page
+ * Return the default settings of wishlist
  */
 function resetWishlist(user) {
   const refStr = `users/${user}`;
@@ -34,4 +34,14 @@ function resetWishlist(user) {
   return resetData;
 }
 
-export { setWishlist, resetWishlist };
+/**
+ * Get the wishlist product information from database
+ * Return a JSON with attributes: price, rate, stock, productName, imageUrl, url
+ */
+async function getInfo(user) {
+  const refStr = `users/${user}`;
+  const snapshot = await loginDb.ref(refStr).once('value');
+  return snapshot.toJSON();
+}
+
+export { setWishlist, resetWishlist, getInfo };

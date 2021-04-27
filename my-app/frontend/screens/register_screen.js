@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import {
-  Text, View, TouchableOpacity, TextInput, Alert,
+  View, TouchableOpacity, TextInput, Alert,
 } from 'react-native';
-import styles from '../style';
-import loginDb from '../database/login_db';
+import { Text } from 'react-native-paper';
+import { Base64 } from 'js-base64';
+import styles from '../../style';
+import loginDb from '../../backend/database/login_db';
 
 /**
  * The register screen
  * Navigate to the home screen if valid username and password
- * TO DO: Password Hashing
  */
 
 export default class RegisterScreen extends Component {
@@ -43,22 +44,26 @@ export default class RegisterScreen extends Component {
     try {
       if (password !== confirm) {
         Alert.alert('The confirmed password is not the same as password. Please re-enter.');
-        console.log('Not the same password');
       } else if (password.length < 6) {
         Alert.alert('The password should have at least 6 characters.');
-        console.log('Passwords length not correct');
       } else {
+        // default attributes for a new user
         const refStr = `users/${username}`;
         loginDb.ref(refStr).set({
           name: username,
-          password,
+          password: Base64.encode(confirm),
           price: '',
           rate: '',
           balance: 0,
+          monthlyBalance: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           imageUrl: 'http://pngimg.com/uploads/amazon/amazon_PNG21.png',
           url: 'https://www.amazon.com/ref=nav_logo',
           productName: '',
           stock: '',
+          category: '',
+          goal: 0,
+          status: '',
+          currency: '$',
         }).then(() => {
           console.log('New user&password inserted into database');
         }).catch((error) => {
@@ -81,7 +86,7 @@ export default class RegisterScreen extends Component {
             style={styles.textinput}
             placeholder="Username"
             autoCapitalize="none"
-            onChangeText={this.usernameHandler}
+            onChangeText={(text) => this.usernameHandler(text)}
           />
         </View>
 
@@ -91,7 +96,7 @@ export default class RegisterScreen extends Component {
             placeholder="Password"
             secureTextEntry
             autoCapitalize="none"
-            onChangeText={this.passwordHandler}
+            onChangeText={(text) => this.passwordHandler(text)}
           />
         </View>
 
@@ -101,16 +106,14 @@ export default class RegisterScreen extends Component {
             placeholder="Confirm Password"
             secureTextEntry
             autoCapitalize="none"
-            onChangeText={this.confirmHandler}
+            onChangeText={(text) => this.confirmHandler(text)}
           />
         </View>
 
         <TouchableOpacity
           style={styles.registerButton2}
           onPress={() => {
-            const { username } = this.state;
-            const { password } = this.state;
-            const { confirmPassword } = this.state;
+            const { username, password, confirmPassword } = this.state;
             this.registerHandler(username, password,
               confirmPassword);
           }}

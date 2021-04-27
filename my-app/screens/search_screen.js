@@ -5,13 +5,13 @@ import {
 import styles from '../style';
 
 /**
- * The report screen
+ * The search screen
  * TO DO
  */
 
-export default class ReportScreen extends Component {
+export default class SearchScreen extends Component {
   static navigationOptions = {
-    title: 'Report',
+    title: 'Search',
     headerShown: false,
   };
 
@@ -24,7 +24,7 @@ export default class ReportScreen extends Component {
     return (
       <View style={styles.container}>
         <Text>
-          Report Screen!!!
+          Search Screen!!!
           {'\n'}
           -------TO DO-------
         </Text>

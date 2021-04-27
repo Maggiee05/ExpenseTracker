@@ -1,6 +1,6 @@
-import { setBalance, setMonthlyBalance, getBalance } from '../database/tracker_db';
-import { getMonthly, getCategory } from '../database/report_db';
-import { getGoalStatus } from '../database/profile_db';
+import { setBalance, setMonthlyBalance, getBalance } from '../backend/database/tracker_db';
+import { getMonthly, getCategory } from '../backend/database/report_db';
+import { getGoalStatus, checkEndofMonth, getPassword } from '../backend/database/profile_db';
 
 test('Total Balance Changed', async () => {
   const oldData = await getBalance('user1');
@@ -32,4 +32,17 @@ test('Category Balance Changed', async () => {
 test('Get Status', async () => {
   const status = await getGoalStatus('user1');
   expect(status).not.toBeNull();
+});
+
+test('Check end of month', () => {
+  const isEnd1 = checkEndofMonth(3, 31);
+  expect(isEnd1).toBe(true);
+
+  const isEnd2 = checkEndofMonth(4, 15);
+  expect(isEnd2).toBe(false);
+});
+
+test('Get correct Password', async () => {
+  const oldPassword = await getPassword('testPwd');
+  expect(oldPassword).toBe('Qwert1234');
 });

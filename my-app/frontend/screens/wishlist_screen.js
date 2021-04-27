@@ -1,25 +1,23 @@
 import React, { Component } from 'react';
 import {
-  Text, TextInput, View, Image, Alert, TouchableOpacity, ActivityIndicator,
+  TextInput, View, Image, Alert, TouchableOpacity, ActivityIndicator,
 } from 'react-native';
 import { WebView } from 'react-native-webview';
-import styles from '../style';
-import loadProductInfo from '../get_wishlist';
+import { Text } from 'react-native-paper';
+import styles from '../../style';
+import loadProductInfo from '../../backend/get_wishlist';
 import { UserContext } from '../navigator/context';
-import loginDb from '../database/login_db';
+import { setWishlist, resetWishlist, getInfo } from '../../backend/database/wishlist_db';
 
 /**
  * The wishlist screen
  * User can input a certain Amazon website.
  * Information will be scraped from the official website and stored into database.
  */
-
 export default class WishlistScreen extends Component {
   static navigationOptions = {
     title: 'Wishlist',
   };
-
-  // static contextType = UserContext;
 
   constructor(props) {
     super(props);
@@ -31,29 +29,23 @@ export default class WishlistScreen extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount = async () => {
     const currUser = this.context;
-    this.getInfo(currUser.user);
-  }
-  // WishlistScreen.contextType = UserContext;
-
-  getInfo = async (currUser) => {
-    const refStr = `users/${currUser}`;
-    const snapshot = await loginDb.ref(refStr).once('value');
+    const info = await getInfo(currUser.user);
     this.setState({
       currUser,
-      price: snapshot.toJSON().price,
-      rate: snapshot.toJSON().rate,
-      stock: snapshot.toJSON().stock,
-      productName: snapshot.toJSON().productName,
-      imageUrl: snapshot.toJSON().imageUrl,
-      url: snapshot.toJSON().url,
+      price: info.price,
+      rate: info.rate,
+      stock: info.stock,
+      productName: info.productName,
+      imageUrl: info.imageUrl,
+      url: info.url,
     });
   }
 
   submitHandler = async () => {
     this.setState({ loading: true });
-    const { url } = this.state;
+    const { url, currUser } = this.state;
     const item = await loadProductInfo(url);
     if (item === null) {
       this.setState({ loading: false });
@@ -70,45 +62,40 @@ export default class WishlistScreen extends Component {
       });
     }
 
-    const {
-      price, productName, rate, stock, imageUrl, currUser,
-    } = this.state;
-
-    const refStr = `users/${currUser}`;
-    loginDb.ref(refStr).update({
-      price,
-      productName,
-      rate,
-      stock,
-      imageUrl,
-      url,
-    });
+    setWishlist(this.state, currUser);
   }
 
   urlInputHandler = (text) => {
     this.setState({ url: text });
   }
 
+  // ----- the web view handlers ------- below
   webHandler = () => {
     this.setState({ showWebView: true });
   }
 
-  backHandler = () => {
+  backHandler = () => { // back button
     this.setState({ showWebView: false });
     const { navigation } = this.props;
     navigation.navigate('Wishlist');
   }
 
-  webLoading= () => (
+  webLoading= () => ( // loading spinner
     <ActivityIndicator
       size="large"
       style={styles.webLoading}
     />
   )
+  // ----- the web view handlers ------- above
+
+  resetHandler = (user) => {
+    const data = resetWishlist(user);
+    this.setState(data);
+  }
 
   render() {
     const {
-      price, productName, rate, stock, imageUrl, url, loading, showWebView,
+      price, productName, rate, stock, imageUrl, url, loading, showWebView, currUser,
     } = this.state;
 
     if (loading) {
@@ -127,15 +114,9 @@ export default class WishlistScreen extends Component {
             renderLoading={() => this.webLoading()}
           />
 
-          <View style={{
-            alignSelf: 'flex-end',
-            marginTop: '10%',
-            marginRight: '15%',
-            position: 'absolute',
-          }}
-          >
+          <View style={styles.webViewBackPosition}>
             <TouchableOpacity onPress={() => this.backHandler()} style={styles.backButton}>
-              <Text style={{ fontWeight: 'bold', alignSelf: 'center', marginTop: '23%' }}>Back</Text>
+              <Text style={styles.webViewBackTxt}>Back</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -191,6 +172,13 @@ export default class WishlistScreen extends Component {
             {stock}
           </Text>
         </View>
+
+        <TouchableOpacity
+          onPress={() => this.resetHandler(currUser)}
+          style={styles.reset}
+        >
+          <Text style={{ fontWeight: '600', color: '#808080' }}> RESET</Text>
+        </TouchableOpacity>
       </View>
     );
   }

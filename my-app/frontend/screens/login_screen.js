@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import {
-  Text, View, TouchableOpacity, Alert, TextInput,
+  View, TouchableOpacity, Alert, TextInput,
 } from 'react-native';
-import styles from '../style';
-import loginDb from '../database/login_db';
+import { Text } from 'react-native-paper';
+import { Base64 } from 'js-base64';
+import styles from '../../style';
+import loginDb from '../../backend/database/login_db';
 
 /**
  * The login screen
@@ -33,24 +35,24 @@ export default class LoginScreen extends Component {
     }
 
     registerHandler = () => {
-      console.log('Register clicked!!!');
       const { navigation } = this.props;
       navigation.navigate('Register');
     };
 
     loginHandler = (username, password) => {
       // Integrating with Firebase to check whether the usename and password is correct
-      console.log('Login clicked!!!');
       const refStr = `users/${username}`;
-      console.log(refStr);
       loginDb.ref(refStr).once('value', (snapshot) => {
         if (!snapshot.exists()) {
           Alert.alert('Username not exists. Please sign up first.');
-        } else if (snapshot.toJSON().password !== password) {
-          Alert.alert('Incorrect password');
         } else {
-          const { navigation } = this.props;
-          navigation.navigate('Home', { username });
+          const correctPassword = Base64.decode(snapshot.toJSON().password);
+          if (correctPassword !== password) {
+            Alert.alert('Incorrect password');
+          } else {
+            const { navigation } = this.props;
+            navigation.navigate('Home', { username });
+          }
         }
       });
     }
@@ -64,7 +66,7 @@ export default class LoginScreen extends Component {
               style={styles.textinput}
               placeholder="Username"
               autoCapitalize="none"
-              onChangeText={this.usernameHandler}
+              onChangeText={(text) => this.usernameHandler(text)}
             />
           </View>
 
@@ -74,15 +76,14 @@ export default class LoginScreen extends Component {
               placeholder="Password"
               secureTextEntry
               autoCapitalize="none"
-              onChangeText={this.passwordHandler}
+              onChangeText={(text) => this.passwordHandler(text)}
             />
           </View>
 
           <TouchableOpacity
             style={styles.loginButton}
             onPress={() => {
-              const { username } = this.state;
-              const { password } = this.state;
+              const { username, password } = this.state;
               this.loginHandler(username, password);
             }}
           >

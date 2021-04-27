@@ -92,6 +92,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
     fontSize: 11,
     fontWeight: '600',
+    color: '#5a5a5a',
   },
   balanceText: {
     fontSize: 24,
@@ -119,6 +120,7 @@ export default StyleSheet.create({
     marginRight: '7%',
     fontSize: 20,
     marginBottom: '5%',
+    // color: '#f0f8ff',
   },
   backButton: {
     width: 50,
@@ -168,7 +170,7 @@ export default StyleSheet.create({
     height: 30,
     borderRadius: 8,
     marginBottom: '2%',
-    backgroundColor: '#dcdcdc',
+    backgroundColor: '#c8c8c8',
   },
   chartText: {
     fontWeight: '600',
@@ -188,6 +190,12 @@ export default StyleSheet.create({
     flexDirection: 'row',
     marginTop: '5%',
     marginBottom: '10%',
+  },
+  profileTabText: {
+    flex: 8,
+    fontWeight: 'bold',
+    fontSize: 18,
+    marginTop: '1%',
   },
   goalInputBox: {
     alignItems: 'center',
@@ -209,7 +217,8 @@ export default StyleSheet.create({
     height: 60,
     flexDirection: 'row',
     marginTop: '2%',
-    backgroundColor: '#ecf3f5',
+    backgroundColor: '#d9e1eb',
+    borderRadius: 10,
   },
   categoryText: {
     fontSize: 18,
@@ -225,5 +234,31 @@ export default StyleSheet.create({
     flex: 2,
     color: '#696969',
     textDecorationLine: 'underline',
+  },
+  webViewBackPosition: {
+    alignSelf: 'flex-end',
+    marginTop: '10%',
+    marginRight: '15%',
+    position: 'absolute',
+  },
+  webViewBackTxt: {
+    fontWeight: 'bold',
+    alignSelf: 'center',
+    marginTop: '23%',
+  },
+  picker: {
+    width: 170,
+    height: 50,
+    marginBottom: '40%',
+    alignSelf: 'center',
+  },
+  changeBtn1: {
+    flex: 8,
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+  changeBtn2: {
+    flex: 0.6,
+    fontSize: 16,
   },
 });
