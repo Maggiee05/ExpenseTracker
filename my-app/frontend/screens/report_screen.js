@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import {
-  Text, View, TouchableOpacity,
+  View, TouchableOpacity, Share, Alert,
 } from 'react-native';
 import {
   LineChart, PieChart,
 } from 'react-native-chart-kit';
 import { Icon } from 'react-native-elements';
-import styles from '../style';
+import { Text } from 'react-native-paper';
+import styles from '../../style';
 import { UserContext } from '../navigator/context';
-import { getMonthly, getCategory } from '../database/report_db';
+import { getMonthly, getCategory } from '../../backend/database/report_db';
+import { changeCurrency } from '../../backend/database/profile_db';
 
 /**
  * The chart configuration, required parameter for react-native-chart-kit
@@ -38,7 +40,7 @@ const chartConfig = {
  * The report screen
  * User can choose to load either:
  *      monthly balance linechart, categorical expense pie chart, or categorical income pie chart
- * TO DO: Share button handler
+ * Come with a share button
  */
 
 export default class ReportScreen extends Component {
@@ -56,12 +58,15 @@ export default class ReportScreen extends Component {
       renderCategoryExpense: false,
       renderCategoryIncome: false,
       renderTime: false, // whether the user changed the goal once
+      shareStatus: '',
+      currency: '',
     };
   }
 
-  componentDidMount() {
+  componentDidMount = async () => {
     const currUser = this.context;
-    this.setState({ currUser: currUser.user });
+    const currency = await changeCurrency(currUser.user, 0);
+    this.setState({ currUser: currUser.user, currency });
   }
 
   // generate monthly balance linechart
@@ -74,6 +79,7 @@ export default class ReportScreen extends Component {
 
   // generate categorical expense pie chart
   catExpenseHandler = async (user) => {
+    this.componentDidMount();
     const result = await getCategory(user, 0);
     this.setState({
       data: result[0],
@@ -96,9 +102,36 @@ export default class ReportScreen extends Component {
     });
   }
 
+  // share button handler, share report and generate status
+  shareHandler = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          'Your report of the expense tracker',
+      });
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          const month = new Date().getMonth() + 1;
+          const year = new Date().getFullYear();
+          const date = new Date().getDate();
+          // render sharing status
+          this.setState({ shareStatus: `You've shared the report on ${month}/${date}/${year}` });
+        } else {
+          // shared, continue
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // share action dismissed
+      }
+    } catch (error) {
+      Alert.alert(error.message);
+    }
+  }
+
   render() {
     const {
-      currUser, renderTime, data, renderCategoryExpense, total, renderCategoryIncome,
+      currUser, renderTime, data, renderCategoryExpense, total,
+      renderCategoryIncome, shareStatus, currency,
     } = this.state;
     return (
 
@@ -142,7 +175,9 @@ export default class ReportScreen extends Component {
           && (
           <View>
             <Text style={styles.chartTitle}>
-              Total Expense is $
+              Total Expense is
+              {' '}
+              {currency}
               {total}
             </Text>
             <PieChart
@@ -165,7 +200,9 @@ export default class ReportScreen extends Component {
           && (
           <View>
             <Text style={styles.chartTitle}>
-              Total Income is $
+              Total Income is
+              {' '}
+              {currency}
               {total}
             </Text>
             <PieChart
@@ -182,9 +219,12 @@ export default class ReportScreen extends Component {
         }
         </View>
 
-        <TouchableOpacity style={styles.reset}>
+        <TouchableOpacity style={{ position: 'absolute', bottom: 30, right: 40 }} onPress={() => this.shareHandler()}>
           <Icon reverse name="share" size={20} color="#b0c4de" />
         </TouchableOpacity>
+        <Text style={{ position: 'absolute', bottom: 10, right: 10 }}>
+          { shareStatus }
+        </Text>
 
       </View>
     );

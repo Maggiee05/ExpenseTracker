@@ -1,4 +1,4 @@
-## Manual Test plan (updated in week3)
+## Manual Test plan (updated in week4)
 ## Prerequisite
 
 #### The following OS should be used for testing
@@ -16,7 +16,6 @@
 - Firebase
 - Eslint
 
-
 ---
 ## Project Setup
 
@@ -26,7 +25,7 @@
 
 - Make sure you have React Native packages dependencies installed (checkout package.json)
 
-- You should create a *login_db.js* file in *my-app/database* setting up personal firebase configuration
+- You should create a *login_db.js* file in *my-app/backend/database* setting up personal firebase configuration
 
 ```ruby
 import firebase from 'firebase/app';
@@ -74,7 +73,7 @@ export default loginDb;
 
  Password input are text secured.
 
-- INVALID **password** and **Confirm password** 
+- Invalid **password** and **Confirm password** 
 
 | Password not match | Password too simple |
 |:---------------:|:-------------:|
@@ -169,25 +168,36 @@ After a short loading scene, you will be guided to the official Amazon website o
 
 ![](img/p13.png)
 
-User can click on either button to generate corresponding chart. There's also a **share** button/
+User can click on either button to generate corresponding chart.
 
 - Charts Example
 
-| Default  | Goal amount is set|
-|:---------------:|:-------------:|
-| ![](img/p17_1.png) | ![](img/p17_2.png) |
+| Monthly balance | Categorical expense | Categorical income |
+|:---------------:|:-------------:| :-------------:|
+| ![](img/p14.png) | ![](img/p15.png) | ![](img/p16.png) |
 
+- Share Button
+
+![](img/p26_1.png)
+
+Press the button to share your report
+
+- After shared
+
+![](img/p26_2.png)
+
+You will have the status showing the date you've shared before
 ___
 
 ### Profile
 
 - This is the Profile *Me* Screen
 
-| Monthly balance | Categorical expense | Categorical income |
-|:---------------:|:-------------:| :-------------:|
-| ![](img/p14.png) | ![](img/p15.png) | ![](img/p16.png) |
+| Default  | Goal amount is set|
+|:---------------:|:-------------:|
+| ![](img/p17_1.png) | ![](img/p17_2.png) |
 
-
+The goal amount and status is on the top. And other custom features are below.
 
 - Input a amount and click **OK**
 
@@ -205,4 +215,90 @@ If user tries to set multiple times, you will receive an alert message.
 
 ___
 
-### TO DO
+### Add/Delete categories
+
+- If you click the **Change categories**
+
+![](img/p19.png)
+
+You will be brough to a page listing all the current categories of the expense tracker you have.
+
+- Add categories
+
+| Enter category   | Category is added to the list| Category is added to the picker |
+|:---------------:|:-------------:|:-------------:|
+| ![](img/p20_1.png) | ![](img/p20_2.png) | ![](img/p20_3.png) |
+
+- Delete categories, click the category
+
+![](img/p21.png)
+
+Click **OK** and the category is deleted
+
+---
+
+### Change password
+
+- If you click the **Change password**
+
+![](img/p22.png)
+
+- Invalid password
+
+| Same as old password  | New password too short | Password not match |
+|:---------------:|:-------------:|:-------------:|
+| ![](img/p23_1.png) | ![](img/p23_2.png) | ![](img/p23_3.png) |
+
+- Valid password
+
+![](img/p23_4.png)
+
+---
+
+### Change currency
+
+- You can switch currency by clicking th toggle
+
+| Toggle off: Currency $ | Toggle on: Currency ¥|
+|:---------------:|:-------------:|
+| ![](img/p24_1.png) | ![](img/p24_2.png) |
+
+---
+
+### Delete account
+
+- If you click the *Delete account* button
+
+![](img/p25.png)
+
+Press *Yes* to delete
+
+---
+
+### Change Theme
+
+- You can switch the toggle to change between Dark Theme and Light Theme
+
+| Dark Expense Tracker  | Dark Wishlist | Dark Report | Dark Profile |
+|:---------------:|:-------------:|:-------------:| :-------------:|
+| ![](img/p27_1.png) | ![](img/p27_2.png) | ![](img/p27_3.png) | ![](img/p27_4.png) |
+
+---
+
+### Notifications
+
+- If it's end of the month and you've reached the goal
+
+![](img/p28.png)
+
+Press *No* to remain the current goal, *Yes* to change the goal.
+
+- If it's end of the month and you didn't reach the goal
+
+![](img/p29.png)
+
+- Make your selection
+
+| Press Yes  | Press Cancel: Goal will be reset| 
+|:---------------:|:-------------:|
+| ![](img/p30_1.png) | ![](img/p30_2.png) |

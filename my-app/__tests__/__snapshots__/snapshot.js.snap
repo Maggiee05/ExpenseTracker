@@ -296,3 +296,43 @@ exports[`App renders register screen 1`] = `
   </View>
 </View>
 `;
+
+exports[`App renders report screen 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "flexDirection": "column",
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text>
+    Report Screen!!!
+    
+
+    -------TO DO-------
+  </Text>
+</View>
+`;
+
+exports[`App renders search screen 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "flexDirection": "column",
+      "justifyContent": "center",
+    }
+  }
+>
+  <Text>
+    Search Screen!!!
+    
+
+    -------TO DO-------
+  </Text>
+</View>
+`;

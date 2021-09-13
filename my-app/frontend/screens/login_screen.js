@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import {
-  Text, View, TouchableOpacity, Alert, TextInput,
+  View, TouchableOpacity, Alert, TextInput,
 } from 'react-native';
-import styles from '../style';
-import loginDb from '../database/login_db';
+import { Text } from 'react-native-paper';
+import { Base64 } from 'js-base64';
+import styles from '../../style';
+import loginDb from '../../backend/database/login_db';
 
 /**
  * The login screen
@@ -43,11 +45,14 @@ export default class LoginScreen extends Component {
       loginDb.ref(refStr).once('value', (snapshot) => {
         if (!snapshot.exists()) {
           Alert.alert('Username not exists. Please sign up first.');
-        } else if (snapshot.toJSON().password !== password) {
-          Alert.alert('Incorrect password');
         } else {
-          const { navigation } = this.props;
-          navigation.navigate('Home', { username });
+          const correctPassword = Base64.decode(snapshot.toJSON().password);
+          if (correctPassword !== password) {
+            Alert.alert('Incorrect password');
+          } else {
+            const { navigation } = this.props;
+            navigation.navigate('Home', { username });
+          }
         }
       });
     }

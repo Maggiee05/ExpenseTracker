@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import {
-  Text, View, TouchableOpacity, TextInput, Alert,
+  View, TouchableOpacity, TextInput, Alert,
 } from 'react-native';
-import styles from '../style';
-import loginDb from '../database/login_db';
+import { Text } from 'react-native-paper';
+import { Base64 } from 'js-base64';
+import styles from '../../style';
+import loginDb from '../../backend/database/login_db';
 
 /**
  * The register screen
  * Navigate to the home screen if valid username and password
- * TO DO: Password Hashing
  */
 
 export default class RegisterScreen extends Component {
@@ -50,7 +51,7 @@ export default class RegisterScreen extends Component {
         const refStr = `users/${username}`;
         loginDb.ref(refStr).set({
           name: username,
-          password,
+          password: Base64.encode(confirm),
           price: '',
           rate: '',
           balance: 0,
@@ -62,6 +63,7 @@ export default class RegisterScreen extends Component {
           category: '',
           goal: 0,
           status: '',
+          currency: '$',
         }).then(() => {
           console.log('New user&password inserted into database');
         }).catch((error) => {
@@ -84,7 +86,7 @@ export default class RegisterScreen extends Component {
             style={styles.textinput}
             placeholder="Username"
             autoCapitalize="none"
-            onChangeText={this.usernameHandler}
+            onChangeText={(text) => this.usernameHandler(text)}
           />
         </View>
 
@@ -94,7 +96,7 @@ export default class RegisterScreen extends Component {
             placeholder="Password"
             secureTextEntry
             autoCapitalize="none"
-            onChangeText={this.passwordHandler}
+            onChangeText={(text) => this.passwordHandler(text)}
           />
         </View>
 
@@ -104,7 +106,7 @@ export default class RegisterScreen extends Component {
             placeholder="Confirm Password"
             secureTextEntry
             autoCapitalize="none"
-            onChangeText={this.confirmHandler}
+            onChangeText={(text) => this.confirmHandler(text)}
           />
         </View>
 

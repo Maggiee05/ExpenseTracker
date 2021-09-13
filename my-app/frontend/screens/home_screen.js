@@ -3,7 +3,7 @@ import MainStackNavigator from '../navigator/MainNavigator';
 import { UserContext } from '../navigator/context';
 
 /**
- * The home screen class use to transmit the login/register screen to the main App screens
+ * The home screen class use to transmit from the login/register screen to the main App screens
  * Receive the current user from login/register and pass to the main navigator
  */
 

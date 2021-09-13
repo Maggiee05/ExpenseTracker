@@ -11,11 +11,12 @@ CS242 Final Project
 - Xcode
 
 ## FEATURES
-- Login/Register screen allows user to login or register
+- Login/Register
 - Expense tracker
 - WishList
-- Search for expense history
 - Report ot expense tracker
+- Change categories, currency, and Dark Theme
+- Delete account
 
 ## AUTHOR
 Maggie Chen

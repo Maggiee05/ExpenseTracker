@@ -1,15 +1,18 @@
 /* eslint-disable react/no-array-index-key */
 import React, { Component } from 'react';
 import {
-  Text, TextInput, View, TouchableOpacity,
+  TextInput, View, TouchableOpacity,
 } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { Text } from 'react-native-paper';
 import Picker from '@gregfrench/react-native-wheel-picker';
-import styles from '../style';
+import styles from '../../style';
 import { UserContext } from '../navigator/context';
 import {
   setBalance, resetTracker, setMonthlyBalance, getBalance,
-} from '../database/tracker_db';
+} from '../../backend/database/tracker_db';
+import { changeCurrency, setStatus } from '../../backend/database/profile_db';
+import { getCategory } from '../../backend/global';
 
 /**
  * The expense tracker screen
@@ -17,7 +20,7 @@ import {
  * Features: select category, input expense/income amount, logout, reset
  */
 
-const PickerItem = Picker.Item;
+const PickerItem = Picker.Item; // The wheel picker
 
 export default class TrackerScreen extends Component {
   static navigationOptions = {
@@ -34,13 +37,16 @@ export default class TrackerScreen extends Component {
       hideText: 'Show',
       selectedItem: 3,
       category: '',
-      itemList: ['Housing', 'Eating', 'Education', 'Investment', 'Salary', 'Entertaining', 'Medical', 'Transportation'],
+      itemList: [],
+      currency: '',
     };
   }
 
-  componentDidMount() {
+  componentDidMount = async () => {
     const currUser = this.context;
-    this.setState({ currUser: currUser.user });
+    const currency = await changeCurrency(currUser.user, 0);
+    const CategoryRes = getCategory();
+    this.setState({ currUser: currUser.user, currency, itemList: CategoryRes });
   }
 
   logoutHandler = () => {
@@ -53,18 +59,20 @@ export default class TrackerScreen extends Component {
   }
 
   showHandler = async () => {
-    const { currUser, hideText } = this.state;
+    // click to show/hide the balance amount, default is hided
+    await this.componentDidMount();
+    const { currUser, hideText, currency } = this.state;
     const result = await getBalance(currUser);
     if (hideText === 'Hide') {
       this.setState({ hideText: 'Show', balance: '******' });
     } else {
-      this.setState({ hideText: 'Hide', balance: `$${result}` });
+      this.setState({ hideText: 'Hide', balance: currency + result });
     }
   }
 
   // If 'Add' is clicked, category and amount will be updated/insert to the database
   addHandler = async () => {
-    const { selectedItem, itemList } = this.state;
+    const { selectedItem, itemList, currency } = this.state;
     const idx = selectedItem;
     const item = itemList[idx];
     await this.setState({ category: item });
@@ -75,7 +83,8 @@ export default class TrackerScreen extends Component {
     setMonthlyBalance(currUser, parseFloat(addAmount), currMonth);
 
     const result = await setBalance(currUser, parseFloat(addAmount), category.toLowerCase());
-    this.setState({ balance: `$${result}` });
+    this.setState({ balance: currency + result });
+    setStatus(currUser, 0, '$');
   }
 
   onPickerSelect = (index) => {
@@ -85,8 +94,9 @@ export default class TrackerScreen extends Component {
   }
 
   resetHandler = (user) => {
+    const { currency } = this.state;
     resetTracker(user);
-    this.setState({ balance: '$0', category: '' });
+    this.setState({ balance: `${currency}0`, category: '' });
   }
 
   render() {
@@ -127,11 +137,10 @@ export default class TrackerScreen extends Component {
             <Text style={styles.textAttr}>Category: </Text>
 
             <Picker
-              style={{
-                width: 170, height: 50, marginBottom: '40%', alignSelf: 'center',
-              }}
+              style={styles.picker}
+              lineColor="#787878"
               selectedValue={selectedItem}
-              itemStyle={{ fontSize: 18, fontWeight: '500' }}
+              itemStyle={{ fontSize: 18, fontWeight: '500', color: '#aaaaaa' }}
               onValueChange={(index) => this.onPickerSelect(index)}
             >
 
@@ -175,7 +184,6 @@ export default class TrackerScreen extends Component {
           </TouchableOpacity>
         </View>
       </View>
-
     );
   }
 }
